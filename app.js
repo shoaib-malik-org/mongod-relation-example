@@ -23,10 +23,20 @@ app.get("/relate", (req, res) => {
         })
 })
 
-// if you are going use only one database use info.GetDb outside
 
-// this don't work if you did not use info.GetDb outside the app.use
 crud.findMany("test", {})
     .then((result) => {
         console.log(result)
     })
+
+// for multiple relation
+fun()
+async function fun() {
+    const record1 = await relate({ name: "check" }, { name: "test" }, { id: "first_id" })
+    const record2 = await relate(record1, { name: "first" }, { "gotObjects1.arr": "name" })
+    // here one value is going from server and second from database
+    const record3 = await relate(record2, { name: "test" }, { "gotObjects2.name": "arr" })
+    // you can also do this
+    // const record3 = await relate(record2, record1, { "gotObjects2.name": "arr" })
+    console.log(record3)
+}
